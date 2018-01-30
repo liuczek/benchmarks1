@@ -13,6 +13,14 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
+
+MEDIA_ROOT = PROJECT_PATH + '/media/'
+
+TEMPLATE_DIRS = (
+    PROJECT_PATH + '/templates/',
+)
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -25,7 +33,7 @@ SECRET_KEY = 'rylnb#y8mw__7ta2+315icd=xc_25l2luu_)-wsut_a=fb$2v&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.169.4','127.0.0.1']
 
 
 # Application definition

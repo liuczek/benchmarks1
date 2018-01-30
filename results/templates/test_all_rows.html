@@ -1,0 +1,161 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+<script type="text/javascript">
+ $(document).on('change','#attribute',function(){
+  	time=0  	
+  	if ($('#timeframe').length){time=$('#timeframe').val()}  	 	
+    window.location.replace(window.location.pathname+"?att="+$('#attribute').val()+"&sig_paired="+$('#sig_paired').is(':checked')+"&sig_total="+$('#sig_total').is(':checked')+"&time="+time+"&filtr_1="+$('#filtr1').val()+"&filtr_2="+$('#filtr2').val()+"&filtr_3="+$('#filtr3').val());
+});
+  $(document).on('change','#timeframe',function(){
+  	time=0  	
+  	if ($('#timeframe').length){time=$('#timeframe').val()}  	  	
+    window.location.replace(window.location.pathname+"?att="+$('#attribute').val()+"&sig_paired="+$('#sig_paired').is(':checked')+"&sig_total="+$('#sig_total').is(':checked')+"&time="+time+"&filtr_1="+$('#filtr1').val()+"&filtr_2="+$('#filtr2').val()+"&filtr_3="+$('#filtr3').val());
+});
+  $(document).on('change','#sig_total',function(){
+  	time=0
+  	if ($('#timeframe').length){time=$('#timeframe').val()}
+    window.location.replace(window.location.pathname+"?att="+$('#attribute').val()+"&sig_paired="+$('#sig_paired').is(':checked')+"&sig_total="+$('#sig_total').is(':checked')+"&time="+time+"&filtr_1="+$('#filtr1').val()+"&filtr_2="+$('#filtr2').val()+"&filtr_3="+$('#filtr3').val());
+});  
+  $(document).on('change','#sig_paired',function(){
+  	time=0  	
+  	if ($('#timeframe').length){time=$('#timeframe').val()}  	
+    window.location.replace(window.location.pathname+"?att="+$('#attribute').val()+"&sig_paired="+$('#sig_paired').is(':checked')+"&sig_total="+$('#sig_total').is(':checked')+"&time="+time+"&filtr_1="+$('#filtr1').val()+"&filtr_2="+$('#filtr2').val()+"&filtr_3="+$('#filtr3').val());
+});    
+  $(document).on('change','#filtr3',function(){
+  	time=0  	
+  	if ($('#timeframe').length){time=$('#timeframe').val()}  	  	
+    window.location.replace(window.location.pathname+"?att="+$('#attribute').val()+"&sig_paired="+$('#sig_paired').is(':checked')+"&sig_total="+$('#sig_total').is(':checked')+"&time="+time+"&filtr_1="+$('#filtr1').val()+"&filtr_2="+$('#filtr2').val()+"&filtr_3="+$('#filtr3').val());
+});  
+  $(document).on('change','#filtr2',function(){
+  	time=0  	
+  	if ($('#timeframe').length){time=$('#timeframe').val()}  	  	
+    window.location.replace(window.location.pathname+"?att="+$('#attribute').val()+"&sig_paired="+$('#sig_paired').is(':checked')+"&sig_total="+$('#sig_total').is(':checked')+"&time="+time+"&filtr_1="+$('#filtr1').val()+"&filtr_2="+$('#filtr2').val()+"&filtr_3="+$('#filtr3').val());
+});    
+  $(document).on('change','#filtr1',function(){
+  	time=0  	
+  	if ($('#timeframe').length){time=$('#timeframe').val()}  	  	
+    window.location.replace(window.location.pathname+"?att="+$('#attribute').val()+"&sig_paired="+$('#sig_paired').is(':checked')+"&sig_total="+$('#sig_total').is(':checked')+"&time="+time+"&filtr_1="+$('#filtr1').val()+"&filtr_2="+$('#filtr2').val()+"&filtr_3="+$('#filtr3').val());
+});      
+</script>
+Filtr 1
+<select id="filtr1" name="filtr1">
+<option value=0>Bez filtru</option>	
+{% for filtr in filters %}
+{% if filtr.type == 2 %}
+	 <option value={{filtr.id}}{% if filtr.id == filters_selected1 %} selected{% endif %}>{{filtr.Attribute.Attribute_Label}} - {{filtr.Option_Label}}</option>
+{% endif %}	 
+{% endfor %}
+</select>
+<br><br>
+Filtr 2
+<select id="filtr2" name="filtr2">
+<option value=0>Bez filtru</option>
+{% for filtr in filters %}
+{% if filtr.type == 2 %}
+	 <option value={{filtr.id}}{% if filtr.id == filters_selected2 %} selected{% endif %}>{{filtr.Attribute.Attribute_Label}} - {{filtr.Option_Label}}</option>
+{% endif %}	 
+{% endfor %}
+</select>
+<br><br>
+Filtr 3
+<select id="filtr3" name="filtr3">
+<option value=0>Bez filtru</option>	
+{% for filtr in filters %}
+{% if filtr.type == 2 %}
+	 <option value={{filtr.id}}{% if filtr.id == filters_selected3 %} selected{% endif %}>{{filtr.Attribute.Attribute_Label}} - {{filtr.Option_Label}}</option>
+{% endif %}	 	 
+{% endfor %}
+</select>
+<br><br>
+Třídění:
+<select id="attribute" name="attribute">
+{% for attribute in attributes %}
+	 <option value={{attribute.id}}{% if attribute.id == attribute_selected %} selected{% endif %}>{{attribute.Attribute_Label}}</option>
+{% endfor %}
+<option value=999 }{% if 999 == attribute_selected %} selected{% endif %}>Čas dotazníku</option>
+</select>
+{% if attribute_selected == 999 %}
+<select id="timeframe" name="timeframe">
+<option value=1 {% if timeframe_selected == 1 %} selected{% endif %}>Months</option>
+<option value=2 {% if timeframe_selected == 2 %} selected{% endif %}>Quartals</option>
+<option value=3 {% if timeframe_selected == 3 %} selected{% endif %}>Years</option>
+</select>
+{% endif %}
+<br>
+<br>
+<input type="checkbox" name="sig_total" id="sig_total" value="1" {% if sig_total == True %} checked {% endif %} >Zobrazit totalové signifikance<br>
+<input type="checkbox" name="sig_total" id="sig_paired" value="1"{% if sig_paired == True %} checked {% endif %}>Zobrazit párové signifikance
+<br>
+<br>
+<table border=1 width=1850 style='table-layout:fixed'>
+<col width=130>	
+<td></td><th>Total</th>
+{% for option in options %}
+	 <th>{{option.Option_Label}}</th>
+{% endfor %}
+<tr>
+<td></td><td></td>
+{% for letter in letters %}
+	 <th>{{letter}}</th>
+{% endfor %}
+{% for nps_single in nps %}
+{% if nps_single.data == "/" %} </tr><tr><td>{{nps_single.label}}</td> {% endif %} 
+{% if nps_single.data != "/" %} <td 
+{% if sig_total == True %}
+{% if nps_single.sig_total_9995_minus %} bgcolor=#8e1a08 {% endif %} 
+{% if nps_single.sig_total_995_minus %} bgcolor=#ca1a08 {% endif %} 
+{% if nps_single.sig_total_975_minus %} bgcolor=#ca5023 {% endif %} 
+{% if nps_single.sig_total_9995_plus %} bgcolor=#004f00 {% endif %} 
+{% if nps_single.sig_total_995_plus %} bgcolor=#006e00 {% endif %} 
+{% if nps_single.sig_total_975_plus %} bgcolor=#00a200 {% endif %} 
+{% endif %} 
+>{% if nps_single.type != "mean" and nps_single.type != "stdev"%} {{nps_single.data|floatformat:"0"}}  {% endif %} 
+{% if nps_single.type == "mean" or nps_single.type == "stdev" %} {{nps_single.data|floatformat:"2"}} {% endif %}  {% if nps_single.type == "freq" %} % {% endif %}
+{% if sig_paired == True %}
+
+{% if nps_single.sig_9995_plus and attribute_selected != 999 %} <font size="3" color="red">  {{nps_single.sig_9995_plus}} </font> {% endif %}  
+{% if nps_single.sig_995_plus and attribute_selected != 999 %} <font size="2" color="red">  {{nps_single.sig_995_plus}} </font> {% endif %}  
+{% if nps_single.sig_975_plus and attribute_selected != 999 %} <font size="1" color="red">  {{nps_single.sig_975_plus}} </font> {% endif %}  
+
+{% if nps_single.sig_9995_plus and attribute_selected == 999 %} <font size="4" color="red"> <span> &{{nps_single.sig_9995_plus}} </span> </font> {% endif %}  
+{% if nps_single.sig_995_plus and attribute_selected == 999 %} <font size="3" color="red"> <span> &{{nps_single.sig_995_plus}} </span> </font> {% endif %}  
+{% if nps_single.sig_975_plus and attribute_selected == 999 %} <font size="2" color="red"> <span> &{{nps_single.sig_975_plus}} </span> </font> {% endif %}  
+
+{% endif %} 
+</td>{% endif %} 
+{% endfor %}
+</tr>
+</table>
+
+{% if sig_paired == True or sig_total == True  %}
+<font size="3" color="red">SIGNIFIKANCE K NPS SPOČÍTÁNY JAKO KDYBY TO BYLA FREKVENCE<BR>
+SIGNIFIKANCE K PRŮMĚRŮM NEJSOU SPOČÍTÁNY</FONT> 
+{% endif %} 
+<br><br>
+
+{% if sig_total == True %}
+<table><tr><td bgcolor=#8e1a08> &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;</td><td>Statisticky významně menší než Total na hladině 99,95% (chi-kvadrat test)</td></tr>
+<tr><td bgcolor=#ca1a08> &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;</td><td>Statisticky významně menší než Total na hladině 99,5% (chi-kvadrat test)</td></tr>
+<tr><td bgcolor=#ca5023> &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;</td><td>Statisticky významně menší než Total na hladině 97,5% (chi-kvadrat test)</td></tr>
+<tr><td bgcolor=#004f00> &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;</td><td>Statisticky významně větší než Total na hladině 99,95% (chi-kvadrat test)</td></tr>
+<tr><td bgcolor=#006e00> &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;</td><td>Statisticky významně větší než Total na hladině 99,5% (chi-kvadrat test)</td></tr>
+<tr><td bgcolor=#00a200> &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;</td><td>Statisticky významně větší než Total na hladině 97,5% (chi-kvadrat test)</td></tr>
+</table>
+{% endif %} 
+<br>
+
+
+{% if sig_paired == True  and attribute_selected != 999  %}
+<table><tr><td><font size="3" color="red">A</td><td>Statisticky významně vyšší než sloupec A na hladině 99,95% (chi-kvadrat test)</td></tr>
+<tr><td><font size="2" color="red">A</td><td>Statisticky významně vyšší než sloupec A na hladině 99,5% (chi-kvadrat test)</td></tr>
+<tr><td><font size="1" color="red">A</td><td>Statisticky významně vyšší než sloupec A na hladině 97,5% (chi-kvadrat test)</td></tr>
+</table>
+{% endif %} 
+
+{% if sig_paired == True  and attribute_selected == 999  %}
+<table><tr><td><font size="4" color="red"><span>&#8593 &#8595 </span></td><td>Statisticky významně vyšší/nižší než předchozí období na hladině 99,95% (chi-kvadrat test)</td></tr>
+<tr><td><font size="3" color="red"><span>&#8593 &#8595</span></td><td>Statisticky významně vyšší/nižší než předchozí období na hladině 99,5% (chi-kvadrat test)</td></tr>
+<tr><td><font size="2" color="red"><span>&#8593 &#8595</span></td><td>Statisticky významně vyšší/nižší než předchozí období na hladině 97,5% (chi-kvadrat test)</td></tr>
+</table>
+{% endif %} 
